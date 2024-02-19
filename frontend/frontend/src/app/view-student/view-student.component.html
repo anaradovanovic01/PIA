@@ -1,0 +1,35 @@
+<div class="text-center err" *ngIf="loggedIn==false">
+    <br>You are not logged in!<br><br>
+    <input type='button' value='Log in' [routerLink]="['/login']" class="button btn" style="margin-right: 10px;">
+    <input type='button' value='Sign up' [routerLink]="['/signup']" class="button btn">
+</div>
+<div *ngIf="loggedIn==true" class="custom-container">
+    <div class="text-center">
+        <h2>Classes with {{student.firstname}} {{student.lastname}}</h2>
+        <h4 *ngIf="classes.length==0"  class="mt-3">There are no classes with {{student.firstname}} {{student.lastname}}.</h4>
+        <table *ngIf="classes.length>0" class="classes">
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Subject</th>
+                <th>Review</th>
+                <th>Comment</th>
+                <th>Leave review</th>
+            </tr>
+            <tr *ngFor="let c of classes">
+                <td>{{c.datetime | date}}</td>
+                <td>{{c.datetime | date: 'HH:mm'}}h</td>
+                <td>{{c.subject}}</td>
+                <td>
+                    <span *ngIf="c.reviewForStudent>0 && c.commentForStudent!=null">{{c.reviewForStudent}}</span>
+                    <span *ngIf="!(c.reviewForStudent>0 && c.commentForStudent!=null)">/</span>
+                </td>
+                <td>
+                    <span *ngIf="c.reviewForStudent>0 && c.commentForStudent!=null">{{c.commentForStudent}}</span>
+                    <span *ngIf="!(c.reviewForStudent>0 && c.commentForStudent!=null)">/</span>
+                </td>
+                <td><button [disabled]="c.reviewForStudent>0 && c.commentForStudent!=null" (click)="leaveReview(c)" class="btn button">Leave review</button></td>
+            </tr>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,93 @@
+<div class="text-center err" *ngIf="loggedIn==false">
+    <br>You are not logged in!<br><br>
+    <input type='button' value='Log in' [routerLink]="['/login']" class="button btn" style="margin-right: 10px;">
+    <input type='button' value='Sign up' [routerLink]="['/signup']" class="button btn">
+</div>
+<div *ngIf="loggedIn==true" class="custom-container">
+    <div class="row text-center">
+        <h2>List of subjects and tutors we offer</h2>
+    </div>
+    <h4 *ngIf="subjects.length==0" class="text-center">
+        There are no results to this search
+    </h4>
+    <table class="subjects" *ngIf="subjects.length>0">
+        <tr>
+            <th class="larger_letters">Subject</th>
+            <th class="larger_letters">Tutors</th>
+        </tr>
+        <tr *ngFor="let s of subjects">
+            <td class="larger_letters">{{s}}</td>
+            <td>
+                <ul>
+                    <div *ngFor="let t of map.get(s)">
+                        <li>
+                            <span class="larger_letters">{{t[0]}} {{t[1]}}</span><br>
+                            <i class="fa fa-lg" [ngClass]="{'fa-star-o': +t[2] < 0.5, 'fa-star-half-o' : +t[2] >= 0.5 && +t[2] < 1, 'fa-star' : +t[2] >= 1}"></i>
+                            <i class="fa fa-lg" [ngClass]="{'fa-star-o': +t[2] < 1.5, 'fa-star-half-o' : +t[2] >= 1.5 && +t[2] < 2, 'fa-star' : +t[2] >= 2}"></i>
+                            <i class="fa fa-lg" [ngClass]="{'fa-star-o': +t[2] < 2.5, 'fa-star-half-o' : +t[2] >= 2.5 && +t[2] < 3, 'fa-star' : +t[2] >= 3}"></i>
+                            <i class="fa fa-lg" [ngClass]="{'fa-star-o': +t[2] < 3.5, 'fa-star-half-o' : +t[2] >= 3.5 && +t[2] < 4, 'fa-star' : +t[2] >= 4}"></i>
+                            <i class="fa fa-lg" [ngClass]="{'fa-star-o': +t[2] < 4.5, 'fa-star-half-o' : +t[2] >= 4.5 && +t[2] < 5, 'fa-star' : +t[2] == 5}"></i>
+                            <span class="larger_letters"> {{t[2]}}</span><br>
+                            <a (click)="viewTutorProfile(t[3])" style="color: #43697d; text-decoration: underline;">View {{t[0]}}'s profile</a>
+                        </li>
+                    </div>
+                </ul>
+            </td>
+        </tr>
+    </table>
+    <div id="sort_search" class="mb-5">
+        <div class="card sort">
+            <h4>Sort</h4>
+            <table>
+                <tr>
+                    <td>Sort by:</td>
+                    <td>
+                        <input type="radio" name="param" value="subject" [(ngModel)]="param"> Subject<br>
+                        <input type="radio" name="param" value="firstname" [(ngModel)]="param"> Tutor's firstname<br>
+                        <input type="radio" name="param" value="lastname" [(ngModel)]="param"> Tutor's lastname
+                    </td>
+                </tr>
+                <tr>
+                    <td>Order:</td>
+                    <td>
+                        <input type="radio" name="order" value="asc" [(ngModel)]="order"> Ascending<br>
+                        <input type="radio" name="order" value="desc" [(ngModel)]="order"> Descending
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="text-center">
+                        <button class="btn button" (click)="sort()">Sort</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="card search">
+            <h4>Search</h4>
+            <table>
+                <tr>
+                    <td>Subject:</td>
+                    <td>
+                        <input type="text" [(ngModel)]="subject" class="form-control">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tutor's firstname:</td>
+                    <td>
+                        <input type="text" [(ngModel)]="firstname" class="form-control">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tutor's lastname:</td>
+                    <td>
+                        <input type="text" [(ngModel)]="lastname" class="form-control">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="text-center">
+                        <button class="btn button" (click)="search()">Search</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

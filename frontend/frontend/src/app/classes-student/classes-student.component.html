@@ -1,0 +1,60 @@
+<div class="text-center err" *ngIf="loggedIn==false">
+    <br>You are not logged in!<br><br>
+    <input type='button' value='Log in' [routerLink]="['/login']" class="button btn" style="margin-right: 10px;">
+    <input type='button' value='Sign up' [routerLink]="['/signup']" class="button btn">
+</div>
+<div *ngIf="loggedIn==true" class="custom-container">
+    <div class="row text-center">
+        <div class="col-md-6 pl-4">
+            <h2>Past classes</h2>
+            <h4 *ngIf="pastClasses.length==0">You have not had any classes yet.</h4>
+            <table *ngIf="pastClasses.length>0" class="classes">
+                <tr>
+                    <th>Date</th>
+                    <th>Start time</th>
+                    <th>End time</th>
+                    <th>Tutor</th>
+                    <th>Subject</th>
+                    <th>Comment</th>
+                    <th>Rate class</th>
+                </tr>
+                <tr *ngFor="let c of pastClasses">
+                    <td>{{c.datetime | date}}</td>
+                    <td>{{c.datetime | date: 'HH:mm'}}h</td>
+                    <td>{{calculateEndTime(c.datetime, c.doubletime) | date: 'HH:mm'}}h</td>
+                    <td>{{c.tutor}}</td>
+                    <td>{{c.subject}}</td>
+                    <td>
+                        <span *ngIf="c.commentForStudent!=''">{{c.commentForStudent}}</span>
+                        <span *ngIf="c.commentForStudent===null">/</span>
+                    </td>
+                    <td><button *ngIf="c.commentForTutor==undefined" (click)="leaveReview(c)" class="btn button">Rate</button></td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <h2>Upcoming classes</h2>
+            <h4 *ngIf="upcomingClasses.length==0">There are no upcoming class for you.</h4>
+            <table *ngIf="upcomingClasses.length>0" class="classes">
+                <tr>
+                    <th>Date</th>
+                    <th>Start time</th>
+                    <th>End time</th>
+                    <th>Tutor</th>
+                    <th>Subject</th>
+                    <th>Description</th>
+                    <th></th>
+                </tr>
+                <tr *ngFor="let c of upcomingClasses">
+                    <td>{{c.datetime | date}}</td>
+                    <td>{{c.datetime | date: 'HH:mm'}}h</td>
+                    <td>{{calculateEndTime(c.datetime, c.doubletime) | date: 'HH:mm'}}h</td>
+                    <td>{{c.tutor}}</td>
+                    <td>{{c.subject}}</td>
+                    <td>{{c.description}}</td>
+                    <td><button *ngIf="checkIf15Before(c.datetime)" class="btn button">Start</button></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

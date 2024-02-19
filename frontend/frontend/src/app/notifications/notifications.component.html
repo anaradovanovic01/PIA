@@ -1,0 +1,49 @@
+<div class="text-center err" *ngIf="loggedIn==false">
+    <br>You are not logged in!<br><br>
+    <input type='button' value='Log in' [routerLink]="['/login']" class="button btn" style="margin-right: 10px;">
+    <input type='button' value='Sign up' [routerLink]="['/signup']" class="button btn">
+</div>
+<h2 class="text-center mb-4">Notifications</h2>
+<div *ngIf="loggedIn==true">
+<div *ngIf="newNotifications.length!=0" class="box shadow-sm rounded bg-white mb-4 notifications" style="margin: auto;">
+    <div class="box-title border-bottom p-3">
+        <h6 class="m-0">New notifications</h6>
+    </div>
+    <div class="box-body p-0">
+        <div *ngFor="let n of newNotifications" class="p-3 d-flex align-items-center border-bottom osahan-post-header">
+            <div class="font-weight-bold mr-3">
+                <div style="width: 68vw;">
+                    <div *ngIf="n.type=='accept'" class="text-truncate" style="display: inline-block;">CLASS REQUEST ACCEPTED</div>
+                    <div *ngIf="n.type=='deny'" class="text-truncate" style="display: inline-block;">CLASS REQUEST DENIED</div>
+                    <div *ngIf="n.type=='cancel'" class="text-truncate" style="display: inline-block;">CLASS CANCELED</div>
+                    <div class="small" style="float: right;">{{n.datetime | date}} {{n.datetime | date:'HH:mm'}}</div>
+                </div>
+                <div class="small">Your class request in {{n.c.subject}} on the {{n.c.datetime | date}} at {{n.c.datetime | date:'HH:mm'}} 
+                    as been {{n.type}}ed by {{n.c.tutor}}.</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="seenNotifications.length!=0" class="box shadow-sm rounded bg-white mb-3 notifications" style="margin: auto;">
+    <div class="box-title border-bottom p-3">
+        <h6 class="m-0">Seen notifications</h6>
+    </div>
+    <div class="box-body p-0">
+        <div *ngFor="let n of seenNotifications" class="p-3 d-flex align-items-center border-bottom osahan-post-header">
+            <div class="font-weight-bold mr-3">
+                <div style="width: 68vw;">
+                    <div *ngIf="n.type=='accept'" class="text-truncate" style="display: inline-block;">CLASS REQUEST ACCEPTED</div>
+                    <div *ngIf="n.type=='deny'" class="text-truncate" style="display: inline-block;">CLASS REQUEST DENIED</div>
+                    <div *ngIf="n.type=='cancel'" class="text-truncate" style="display: inline-block;">CLASS CANCELED</div>
+                    <div class="small" style="float: right;">{{n.datetime | date}} {{n.datetime | date:'HH:mm'}}</div>
+                </div>
+                <div class="small">Your class request in {{n.c.subject}} on the {{n.c.datetime | date}} at {{n.c.datetime | date:'HH:mm'}} 
+                    as been {{n.type}}ed by {{n.c.tutor}}.</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="newNotifications.length==0 && seenNotifications.length==0">
+    <h3>There are no notifications</h3>
+</div>
+</div>

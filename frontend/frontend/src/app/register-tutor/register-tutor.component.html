@@ -1,0 +1,54 @@
+<h2 class="text-center">Sign up</h2>
+<div class="text-center err" *ngIf="loggedIn==true">
+    <br>You are already logged in!<br><br>
+    <input type='button' value='Log out' (click)='logout()' class="button btn" style="margin-right: 10px;">
+    <input type='button' value='See profile' (click)='profile()' class="button btn">
+</div>
+<form *ngIf="loggedIn==false">
+    <table>
+        <tr>
+            <td>CV:</td>
+            <td>
+                <input type="file" name="cv" class="form-control" (change)="onChange($event)" accept=".pdf">
+            </td>
+        </tr>
+        <tr>
+            <td>Which subjects would you like teach?</td>
+            <td>
+                <select multiple name='subjects' [(ngModel)]='subjects' class="form-control">
+                    <option *ngFor="let s of allSubjects" (value)="s.name">{{s.name}}</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Other: <input type="text" name="other" [(ngModel)]="other" class="form-control" style="width: 305px; display: inline-block;"></td>
+        </tr>
+        <tr>
+            <td>Which age do you want to teach?</td>
+            <td>
+                <select name='age' [(ngModel)]='age' class="form-control">
+                    <option value="Primary school - 1-4 grade">Primary school - 1-4 grade</option>
+                    <option value="Primary school - 5-8 grade">Primary school - 5-8 grade</option>
+                    <option value="High school">High school</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Where did you hear about us?</td>
+            <td>
+                <input type="text" name="where" [(ngModel)]="where" class="form-control">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="err text-center">
+                {{message}}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="text-center">
+                <input type='button' value='Sign up' (click)='register()' class="button btn">
+            </td>
+        </tr>
+    </table>
+</form>

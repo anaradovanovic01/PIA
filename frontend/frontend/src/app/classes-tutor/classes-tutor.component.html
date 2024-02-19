@@ -1,0 +1,106 @@
+<div class="text-center err" *ngIf="loggedIn==false">
+    <br>You are not logged in!<br><br>
+    <input type='button' value='Log in' [routerLink]="['/login']" class="button btn" style="margin-right: 10px;">
+    <input type='button' value='Sign up' [routerLink]="['/signup']" class="button btn">
+</div>
+<div *ngIf="loggedIn==true" class="custom-container">
+    <div class="text-center">
+        <h2>Upcoming classes</h2>
+        <h4 *ngIf="upcomingClasses.length==0"  class="mt-3">There are no upcoming class for you.</h4>
+        <table *ngIf="upcomingClasses.length>0" class="classes">
+            <tr>
+                <th>Date</th>
+                <th>Start time</th>
+                <th>End time</th>
+                <th>Student</th>
+                <th>Subject</th>
+                <th>Comment</th>
+                <th></th>
+            </tr>
+            <tr *ngFor="let c of upcomingClasses">
+                <td>{{c.datetime | date}}</td>
+                <td>{{c.datetime | date: 'HH:mm'}}h</td>
+                <td>{{calculateEndTime(c.datetime, c.doubletime) | date: 'HH:mm'}}h</td>
+                <td>{{c.student}}</td>
+                <td>{{c.subject}}</td>
+                <td>{{c.description}}</td>
+                <td *ngIf="!checkIf4Before(c.datetime)"><button class="btn button" (click)="cancel(c)">Cancel</button></td>
+                <td *ngIf="checkIf15Before(c.datetime)"><button class="btn button">Start</button></td>
+            </tr>
+        </table>
+    </div>
+    <div *ngIf="upcomingClasses.length>0" class="text-center">
+        <button class="btn button" *ngIf="show!=5" (click)="show5()">Show 5</button>
+        <button class="btn button" *ngIf="show!=10" (click)="show10()">Show 10</button>
+        <button class="btn button" *ngIf="show!=0" (click)="showAll()">Show all</button>
+    </div>
+    <div class="text-center mt-5">
+        <h2>Class requests</h2>
+        <h4 *ngIf="classesRequests.length==0" class="mt-3">There are no new requests.</h4>
+        <table *ngIf="classesRequests.length>0" class="classes">
+            <tr>
+                <th>Student</th>
+                <th>Subject</th>
+                <th>Date</th>
+                <th>Start time</th>
+                <th>End time</th>
+                <th>Description</th>
+                <th>Rating</th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr *ngFor="let c of classesRequests; let i = index">
+                <td>{{students[i]}}</td>
+                <td>{{c.subject}}</td>
+                <td>{{c.datetime | date}}</td>
+                <td>{{c.datetime | date: 'HH:mm'}}h</td>
+                <td>{{calculateEndTime(c.datetime, c.doubletime) | date: 'HH:mm'}}h</td>
+                <td>{{c.description}}</td>
+                <td>
+                    <i class="fa" [ngClass]="{'fa-star-o': +ratings[i] < 0.5, 'fa-star-half-o' : +ratings[i] >= 0.5 && +ratings[i] < 1, 'fa-star' : +ratings[i] >= 1}"></i>
+                    <i class="fa" [ngClass]="{'fa-star-o': +ratings[i] < 1.5, 'fa-star-half-o' : +ratings[i] >= 1.5 && +ratings[i] < 2, 'fa-star' : +ratings[i] >= 2}"></i>
+                    <i class="fa" [ngClass]="{'fa-star-o': +ratings[i] < 2.5, 'fa-star-half-o' : +ratings[i] >= 2.5 && +ratings[i] < 3, 'fa-star' : +ratings[i] >= 3}"></i>
+                    <i class="fa" [ngClass]="{'fa-star-o': +ratings[i] < 3.5, 'fa-star-half-o' : +ratings[i] >= 3.5 && +ratings[i] < 4, 'fa-star' : +ratings[i] >= 4}"></i>
+                    <i class="fa" [ngClass]="{'fa-star-o': +ratings[i] < 4.5, 'fa-star-half-o' : +ratings[i] >= 4.5 && +ratings[i] < 5, 'fa-star' : +ratings[i] == 5}"></i>    
+                    {{ratings[i]}}
+                </td>
+                <td><button class="btn button" (click)="accept(c)">Accept</button></td>
+                <td><button class="btn button" (click)="decline(c)">Decline</button></td>
+            </tr>
+        </table>
+    </div>
+    <div class="schedule mt-5 mb-3">
+        <h3 class="text-center mb-3">Schedule working hours/time off</h3>
+        <table>
+            <tr>
+                <td>What are you scheduling?</td>
+                <td><select name="working" [(ngModel)]="working" class="form-control"  style="width: 250px;">
+                        <option value="true">Working hours</option>
+                        <option value="false">Time off</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>When will you take time off?</td>
+                <td><input type="datetime-local" name="start" [(ngModel)]="start" class="form-control" style="width: 250px;"></td>
+            </tr>
+            <tr>
+                <td>For how long?</td>
+                <td>
+                    <input type="number" name="time" [(ngModel)]="time" class="form-control" style="width: 120px; display: inline-block;">&nbsp;
+                    <select name="period" [(ngModel)]="period" class="form-control" style="width: 120px; display: inline-block;">
+                        <option value="m">minutes</option>
+                        <option value="h">hours</option>
+                        <option value="d">days</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="text-center err">{{message}}</td>
+            </tr>
+            <tr>
+                <td colspan="2" class="text-center"><input type='button' value='Schedule' (click)='schedule()' class="button btn"></td>
+            </tr>
+        </table>        
+    </div>
+</div>

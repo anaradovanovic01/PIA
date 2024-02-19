@@ -1,0 +1,91 @@
+<div *ngIf="loggedIn==true">
+<section id="profile">
+    <div class="profile-card">
+        <img src="{{imageUrl}}" alt="Profile Photo">
+        <h3>{{tutor.username}}</h3>
+        <table id="profile-table">
+            <tr>
+                <td>First name:</td>
+                <td>{{tutor.firstname}}</td>
+            </tr>
+            <tr>
+                <td>Last name:</td>
+                <td>{{tutor.lastname}}</td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td>{{tutor.email}}</td>
+            </tr>
+            <tr>
+                <td>Contact:</td>
+                <td>{{tutor.contact}}</td>
+            </tr>
+            <tr *ngIf="rating!=0">
+                <td>Rating</td>
+                <td>
+                    <i class="fa fa-lg" [ngClass]="{'fa-star-o': +rating < 0.5, 'fa-star-half-o' : +rating >= 0.5 && +rating < 1, 'fa-star' : +rating >= 1}"></i>
+                    <i class="fa fa-lg" [ngClass]="{'fa-star-o': +rating < 1.5, 'fa-star-half-o' : +rating >= 1.5 && +rating < 2, 'fa-star' : +rating >= 2}"></i>
+                    <i class="fa fa-lg" [ngClass]="{'fa-star-o': +rating < 2.5, 'fa-star-half-o' : +rating >= 2.5 && +rating < 3, 'fa-star' : +rating >= 3}"></i>
+                    <i class="fa fa-lg" [ngClass]="{'fa-star-o': +rating < 3.5, 'fa-star-half-o' : +rating >= 3.5 && +rating < 4, 'fa-star' : +rating >= 4}"></i>
+                    <i class="fa fa-lg" [ngClass]="{'fa-star-o': +rating < 4.5, 'fa-star-half-o' : +rating >= 4.5 && +rating < 5, 'fa-star' : +rating == 5}"></i>
+                </td>
+            </tr>
+            <tr>
+                <td>Subjects:</td>
+                <td>
+                    <ul class="subjects">
+                        <li *ngFor="let s of tutor.subjects">{{s.name}}</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr *ngIf="rating!=0">
+                <td>Reviews:</td>
+                <td>
+                    <ul>
+                        <li *ngFor="let c of classes"><span *ngIf="c.reviewForTutor!=0">{{c.student}}: {{c.commentForTutor}} ({{c.reviewForTutor}})</span></li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </div>
+</section>
+<br>
+<section id="profile" class="mb-5">
+    <div class="profile-card">
+        <h3>Schedule class</h3>
+        <table>
+            <tr>
+                <td>Subject:</td>
+                <td>
+                    <select name='chosenSubject' [(ngModel)]='chosenSubject' class="form-control" [disabled]="tutor.subjects.length==1">
+                        <option *ngFor="let subject of tutor.subjects" [value]="subject">{{subject.name}}</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Date & time:</td>
+                <td><input type="datetime-local" name="datetime" [(ngModel)]="datetime" class="form-control"></td>
+            </tr>
+            <tr>        
+                <td>Description:</td>
+                <td><textarea name="desc" [(ngModel)]="desc" class="form-control"></textarea></td>
+            </tr>
+            <tr>
+                <td>Double time:</td>
+                <td><input type="checkbox" name="doubletime" [(ngModel)]="doubletime" class="form-check"></td>
+            </tr>
+            <tr *ngIf="message != ''">
+                <td colspan="2" class="err text-center" style="text-wrap: wrap; max-width: 400px;">{{message}}</td>
+            </tr>
+            <tr>
+                <td colspan="2" class="text-center"><input type='button' value='Schedule' (click)='schedule()' class="button btn"></td>
+            </tr>
+        </table>
+    </div>
+</section>
+</div>
+<div class="text-center err" *ngIf="loggedIn==false">
+    <br>You are not logged in!<br><br>
+    <input type='button' value='Log in' [routerLink]="['/login']" class="button btn" style="margin-right: 10px;">
+    <input type='button' value='Sign up' [routerLink]="['/signup']" class="button btn">
+</div>

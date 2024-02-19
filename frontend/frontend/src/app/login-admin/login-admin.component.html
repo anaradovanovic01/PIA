@@ -1,0 +1,33 @@
+<h1 class="text-center">Login</h1>
+<div class="text-center err" *ngIf="loggedIn==true">
+    <br>You are already logged in!<br><br>
+    <input type='button' value='Log out' (click)="logout()" class="button btn" style="margin-right: 10px;">
+    <input type='button' value='See profile' (click)="profile()" class="button btn">
+</div>
+<form *ngIf="loggedIn==false">
+    <table>
+        <tr>
+            <td>Username:</td>
+            <td>
+                <input type='text' name='username' [(ngModel)]='username' class="form-control">
+            </td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td>
+                <input type='password' name='password' [(ngModel)]='password' class="form-control">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="err text-center">
+                {{message}}
+            </td>
+        </tr>
+        <tr>
+            <td colspan='2' class="text-center">
+                <input type='button' value='Login' (click)='login()' class="button btn">
+            </td>
+        </tr>
+    </table>
+</form>
+

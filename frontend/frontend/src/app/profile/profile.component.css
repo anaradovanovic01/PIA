@@ -1,0 +1,46 @@
+.err{
+    color: #bc2e2e;
+    font-weight: bold;
+    font-size: large;
+}
+
+#profile {
+    background-color: #93BFCF;
+    padding: 2rem;
+    text-align: center;
+}
+
+.profile-card {
+    background-color: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+img {
+    max-width: 150px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+}
+
+h3 {
+    color: #6096B4;
+    margin-bottom: 0.8rem;
+}
+
+.button {
+    background-color: #6096B4;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 5px;
+}
+
+.button:hover {
+    background-color: #93BFCF;
+}

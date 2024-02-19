@@ -1,0 +1,130 @@
+h1, h2, h3, h4 {
+    color: #43697d;
+    margin-bottom: 3%;
+}
+
+.button {
+    /*background-color: #6096B4;*/
+    background-color: #43697d;
+    color: white;
+    margin-top: 3%;
+    font-size: large;
+}
+
+.button:hover {
+    background-color: #93BFCF;
+}
+
+#sort_search {
+    /*border: solid #43697d 3px;
+    background-color: #93BFCF;
+    padding: 1.5rem 0 1.5rem 0;
+    text-align: center;
+    border-radius: 8px;
+    width: 750px;
+    margin: auto;*/
+    margin:auto; 
+    width: 724px;  
+    border-radius: 8px; 
+    background-color: #43697d; 
+    padding-top: 8px; 
+    padding-bottom: 8px;
+    text-align: center;
+}
+
+.card {
+    background-color: #fff;
+    padding: 1.5rem 1rem 1rem 1rem;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    height: 300px;
+    width: 45%;
+    display: inline-block;
+    width: 350px;
+}
+
+.card.sort {
+    margin: 0 4px 0 8px;
+}
+
+.card.search {
+    margin: 0 8px 0 4px;
+}
+
+table {
+    margin-top: 1rem;
+}
+
+.sort td {
+    padding: 0 1rem 1rem 1rem;
+    text-align: left;
+}
+
+.search td {
+    text-align: left;
+}
+
+.subjects li::marker {
+    color:#43697d;
+}
+
+.subjects ul {
+    margin-bottom: 0;
+}
+
+.subjects {
+    margin: auto;
+    border-collapse:separate;
+    border:solid #43697d 3px;
+    border-radius:6px;
+    margin-bottom: 3rem;
+}
+
+.subjects td {
+    border-left:solid #43697d 2px;
+    border-top:solid #43697d 2px;
+    min-width: 250px;
+    padding: 15px;
+    background-color: #fff;
+}
+
+.subjects th {
+    border-left:solid #43697d 2px;
+    border-top:solid #43697d 2px;
+    border-top: none;
+    background-color: #43697d;
+    padding: 15px;
+    color: #fff;
+}
+
+.subjects td:first-child {
+    border-left: none;
+}
+
+.subjects th:first-child {
+    border-left: none;
+}
+
+.custom-container {
+    width: 99vw;
+    padding-right: auto;
+    padding-left: auto;
+    margin: 0
+}
+
+.row {
+    width: 100%;
+}
+
+.fa {
+    color: #43697d
+}
+
+a {
+    color: #43697d; 
+    text-decoration: underline;
+}
+
+.larger_letters {
+    font-size: large;
+}

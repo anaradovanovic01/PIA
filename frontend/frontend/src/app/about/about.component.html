@@ -1,0 +1,127 @@
+<div class="custom-container" style="margin-bottom: 0;">
+    <div class="row text-center">
+        <div class="about text-center col-md-7 col-xs-12">
+            <h1 class="text-center">About us</h1>
+            Welcome to "My Favorite Tutor" – your personal guide through the world of learning! <br>
+            This innovative web application was created to provide you with a simple and <br>
+            effective way to enhance your education. Whether you are a high school student <br>
+            or in elementary school, this platform is your ally in gaining knowledge.<br><br>
+            Start your student adventure with us! "My Favorite Tutor" allows you to connect with <br>
+            educators in a unique way. Virtual classrooms, interactive lessons and monitoring <br>
+            progress make learning an irresistible experience. We provide the opportunity<br>
+            to learn when it suits you best, in the way that aligns with your learning style.<br><br>
+            Together we build a bridge to success. With "My Favorite Tutor", knowledge is at<br>
+            your fingertips, and your path to success has never been easier. Join us on this<br> 
+            journey of learning and growth. We learn together, we grow together. <br>
+            Welcome to the future of education!
+        </div>
+        <div class="col-md-2 col-xs-12" style="margin-top: 40px">
+            <div class="counter">
+                <img class="icon" src="assets/student_icon.png">
+                <h2 class="count-title count-number" [countUp]="studentCount" [duration]="duration"></h2>
+                <p class="count-text">Our students</p>
+            </div>
+            <div class="counter">
+                <img class="icon" src="assets/week_icon.png">
+                <h2 class="count-title count-number" [countUp]="classesCountWeek" [duration]="duration"></h2>
+                <p class="count-text ">Classes in the last week</p>
+            </div>
+        </div>
+        <div class="col-md-1" style="margin-top: 75px; font-size: 20px; color: #43697d; font-weight: 800;">J<br>o<br>i<br>n<br> <br>u<br>s<br><br>t<br>o<br>d<br>a<br>y</div>
+        <div class="col-md-2"  style="margin-top: 40px">
+            <div class="counter">
+                <img class="icon" src="assets/teacher_icon.png">
+                <h2 class="count-title count-number" [countUp]="tutors.length" [duration]="duration"></h2>
+                <p class="count-text ">Our tutors</p>
+            </div>
+            <div class="counter">
+                <img class="icon" src="assets/month_icon.png">
+                <h2 class="count-title count-number" [countUp]="classesCountMonth" [duration]="duration"></h2>
+                <p class="count-text ">Classes in the last month</p>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br><br>
+    <div class="row text-center" style="background-color: #93BFCF; margin: 0; padding-top: 4rem; padding-bottom: 8px;">
+        <h1 style="color: #2f5366;">List of subjects and tutors we offer</h1>
+    </div>
+    <div class="row" style="background-color: #93BFCF; margin: 0; padding-bottom: 2rem;">
+        <div class="col-md-6">
+            <table class="subjects" *ngIf="subjects.length>0">
+                <tr>
+                    <th>Subject</th>
+                    <th>Tutors</th>
+                </tr>
+                <tr *ngFor="let s of subjects">
+                    <td>{{s}}</td>
+                    <td>
+                        <ul>
+                            <li *ngFor="let t of map.get(s)">{{t[0]}} {{t[1]}}</li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+            <div *ngIf="subjects.length==0" style="color: white; font-size: x-large;" class="text-center">
+                There are no results to this search
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <section id="sort_search">
+                <div class="card sort col-xs-12">
+                    <h4>Sort</h4>
+                    <table>
+                        <tr>
+                            <td>Sort by:</td>
+                            <td>
+                                <input type="radio" name="param" value="subject" [(ngModel)]="param"> Subject<br>
+                                <input type="radio" name="param" value="firstname" [(ngModel)]="param"> Tutor's firstname<br>
+                                <input type="radio" name="param" value="lastname" [(ngModel)]="param"> Tutor's lastname
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Order:</td>
+                            <td>
+                                <input type="radio" name="order" value="asc" [(ngModel)]="order"> Ascending<br>
+                                <input type="radio" name="order" value="desc" [(ngModel)]="order"> Descending
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="text-center">
+                                <button class="btn button" (click)="sort()">Sort</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="card search col-xs-12">
+                    <h4>Search</h4>
+                    <table>
+                        <tr>
+                            <td>Subject:</td>
+                            <td>
+                                <input type="text" [(ngModel)]="subject" class="form-control">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tutor's firstname:</td>
+                            <td>
+                                <input type="text" [(ngModel)]="firstname" class="form-control">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tutor's lastname:</td>
+                            <td>
+                                <input type="text" [(ngModel)]="lastname" class="form-control">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="text-center">
+                                <button class="btn button" (click)="search()">Search</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>  
